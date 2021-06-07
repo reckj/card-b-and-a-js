@@ -14,18 +14,62 @@ import './scss/custom.scss';
 //create object for sound-files
 var saw = new Howl({
     src: [sawURL],
-    //loop: true,
+    loop: true,
 });
 var square = new Howl({
     src: [squareURL],
-    //loop: true,
+    loop: true,
 });
 
-const cardElement = document.querySelector('.card');
 
-cardElement.addEventListener('click', () => {
-    cardElement.classList.add('interactive');
+//Flip Card
+const cardElement = document.querySelector('.card');
+const cardFront = document.querySelector('.card-front');
+
+cardFront.addEventListener('click', () => {
+    if (!cardElement.classList.contains('interactive')) {
+        cardElement.classList.add('interactive');
+        console.log('interactive added');
+    }
 })
+
+const closeButton = document.querySelector('#closeButton');
+
+closeButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    cardElement.classList.remove('interactive');
+    console.log('interactive removed');
+})
+
+//Mixer
+function sliderInput (event){
+    const value = event.target.value / 100;
+    saw.volume(value);
+    square.volume(1 - value);
+    console.log(value);
+}
+
+const mixerSlider = document.querySelector('#mixerRange');
+
+mixerSlider.addEventListener('input', sliderInput);
+
+//Mute Button
+let isMuted = false;
+
+function toggleMute (event){
+    if (isMuted){
+        Howler.volume(1);
+        isMuted = false;
+    }
+    else {
+        Howler.volume(0);
+        isMuted = true;
+    }
+}
+
+const muteButton = document.querySelector('#muteButton');
+
+muteButton.addEventListener('click', toggleMute);
 
 
 //play soundfiles

@@ -11251,7 +11251,79 @@ class Toast extends BaseComponent {
 
 exports.Toast = Toast;
 defineJQueryPlugin(Toast);
-},{"@popperjs/core":"../node_modules/@popperjs/core/lib/index.js"}],"index.js":[function(require,module,exports) {
+},{"@popperjs/core":"../node_modules/@popperjs/core/lib/index.js"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)?\/[^/]+(?:\?.*)?$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"scss/custom.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _howler = require("howler");
@@ -11262,28 +11334,69 @@ var _square = _interopRequireDefault(require("./assets/sound/square.mp3"));
 
 var _bootstrap = require("bootstrap");
 
+require("./scss/custom.scss");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // Import a module using ES6 import syntax
 //Import sound files
 //Import bootstrap
+//Import scss file
 //create object for sound-files
 var saw = new _howler.Howl({
-  src: [_saw.default] //loop: true,
-
+  src: [_saw.default],
+  loop: true
 });
 var square = new _howler.Howl({
-  src: [_square.default] //loop: true,
+  src: [_square.default],
+  loop: true
+}); //Flip Card
 
-});
 var cardElement = document.querySelector('.card');
-cardElement.addEventListener('click', function () {
-  cardElement.classList.add('interactive');
-}); //play soundfiles
+var cardFront = document.querySelector('.card-front');
+cardFront.addEventListener('click', function () {
+  if (!cardElement.classList.contains('interactive')) {
+    cardElement.classList.add('interactive');
+    console.log('interactive added');
+  }
+});
+var closeButton = document.querySelector('#closeButton');
+closeButton.addEventListener('click', function (event) {
+  event.preventDefault();
+  cardElement.classList.remove('interactive');
+  console.log('interactive removed');
+}); //Mixer
+
+function sliderInput(event) {
+  var value = event.target.value / 100;
+  saw.volume(value);
+  square.volume(1 - value);
+  console.log(value);
+}
+
+var mixerSlider = document.querySelector('#mixerRange');
+mixerSlider.addEventListener('input', sliderInput); //Mute Button
+
+var isMuted = false;
+
+function toggleMute(event) {
+  if (isMuted) {
+    _howler.Howler.volume(1);
+
+    isMuted = false;
+  } else {
+    _howler.Howler.volume(0);
+
+    isMuted = true;
+  }
+}
+
+var muteButton = document.querySelector('#muteButton');
+muteButton.addEventListener('click', toggleMute); //play soundfiles
 
 saw.play();
 square.play();
-},{"howler":"../node_modules/howler/dist/howler.js","./assets/sound/saw.mp3":"assets/sound/saw.mp3","./assets/sound/square.mp3":"assets/sound/square.mp3","bootstrap":"../node_modules/bootstrap/dist/js/bootstrap.esm.js"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"howler":"../node_modules/howler/dist/howler.js","./assets/sound/saw.mp3":"assets/sound/saw.mp3","./assets/sound/square.mp3":"assets/sound/square.mp3","bootstrap":"../node_modules/bootstrap/dist/js/bootstrap.esm.js","./scss/custom.scss":"scss/custom.scss"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -11311,7 +11424,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52098" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59681" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

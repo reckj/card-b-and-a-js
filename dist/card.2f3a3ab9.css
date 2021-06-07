@@ -38,6 +38,7 @@ body {
   box-shadow: 10px 5px 5px #022623;
   border-radius: 10px;
   overflow: hidden;
+  transition: all 1s;
 }
 
 .mask h2 {
@@ -144,6 +145,7 @@ body {
 .interactive .card-back {
   background-color: #075951;
   transform: rotateY(0deg);
+  transition: all 1s;
 }
 
 

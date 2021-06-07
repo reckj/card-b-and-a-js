@@ -25,61 +25,19 @@ body {
   margin: 10px auto;
 
   /* background-color just here to make the card visible, can be changed */
-  background-color: #555555;
+  background-color: transparent;
 
   /* makes the appearance look more like a card, up to you to change */
-  border-radius: 10px;
 
-  overflow: hidden;
-  box-shadow: 10px 5px 5px #022623;
 
-  filter:grayscale(100);
-  transition: filter 1s 0.01s ease-in-out;
-}
-
-.card:hover {
-  filter: grayscale(0);
-  transition: filter 0s 0s ease-in-out;
-}
-
-.card .mask { 
-  width: 430px;
-  height: 665px;
+  /*overflow: hidden; */
   position: relative;
-	background-color: rgba(0,0,0,0.6);
-	opacity: 1;
-	transform: translate(0, -665px) rotate(360deg);
-	transition: all 1s 0.01s ease-in-out;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
-.card:hover .mask {
-  position: relative; 
-	opacity:0; 
-	transition-delay: 0s;							 
-	transform: translate(0px, 0px);
-}
-
-.card:hover .name {
-  opacity: 1;
-  transition: all 1s 0.01s ease-in-out;
-}
-
-.card:hover .description {
-  opacity: 1;
-  transition: opacity 1s 0.01s ease-in-out;
-}
-
-.card:hover .abilities {
-  transform: translate(0px, 0px);
-  transition: all 1s 0.01s ease-in-out;
-}
-
-.card:hover .avatar {
-  transform: translate(0px, 0px);
-  transition: all 1s 0.01s ease-in-out;
+.card-front {
+  box-shadow: 10px 5px 5px #022623;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .mask h2 {
@@ -103,8 +61,6 @@ body {
   margin: 0 auto;
   padding-top: 60px;
   padding-bottom: 20px;
-  transform: translate(0, -300px);
-  transition: all 1s 0.01s ease-in-out;
 }
 
 .name {
@@ -114,8 +70,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: 0;
-  transition: all 1s 0.01s ease-in-out;
 }
 
 .name h2 {
@@ -138,8 +92,6 @@ body {
   margin: 50px 0 50px 0;
   padding: 0 20px 0 20px;
   float: left;
-  opacity: 0;
-  transition: opacity 1s 0.01s ease-in-out;
 }
 
 .description-container {
@@ -157,8 +109,7 @@ body {
   height: 300px;
   background-color: #0B8C7F;
   float: right;
-  transform: translate(60px, 0);
-  transition: all 1s 0.01s ease-in-out;
+
 }
 
 .skill {
@@ -168,3 +119,30 @@ body {
   margin: 20px 0 20px 5px; 
   box-shadow: 2px 4px 4px #022623; 
 }
+
+.interactive .card-front {
+  transform: rotateY(180deg);
+  transition: all 1s;
+  backface-visibility: hidden;
+}
+
+.card-back {
+  background-color: #075951;
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  transition: all 1s;
+  box-shadow: 10px 5px 5px #022623;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.interactive .card-back {
+  background-color: #075951;
+  transform: rotateY(0deg);
+}
+

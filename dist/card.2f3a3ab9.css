@@ -1,0 +1,151 @@
+/* 
+ * Everything in here can be changed, 
+ * except the format of the card! 
+ * 
+ * Card-Format: 910px * 590px
+ *
+ *Colorset #56BFBF #022623 #0B8C7F #F2F2F2
+*/
+
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+
+
+hmtl,
+body {
+  font-family: 'Raleway', sans-serif;
+}
+
+.card {
+  /* mimicks a quartet card game card size */
+  width: 430px;
+  height: 665px;
+
+  /* centering it */
+  margin: 10px auto;
+
+  /* background-color just here to make the card visible, can be changed */
+  background-color: transparent;
+
+  /* makes the appearance look more like a card, up to you to change */
+
+
+  /*overflow: hidden; */
+  position: relative;
+}
+
+.card-front {
+  box-shadow: 10px 5px 5px #022623;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.mask h2 {
+  margin: 0;
+  padding: 0;
+  color: #ffffff;
+  font-size: 40px;
+}
+
+.headimage {
+  width: 430px;
+  height: 300px;
+  background-color: #075951;
+}
+
+.avatar {
+  width: 380px;
+  display: flex;
+  justify-content: center;
+  background-color: #56BFBF;
+  margin: 0 auto;
+  padding-top: 60px;
+  padding-bottom: 20px;
+}
+
+.name {
+  width: 100%;
+  height: 65px;
+  background-color: #56BFBF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.name h2 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.info {
+  width: 100%;
+  height: 300px;
+  background-color: #022623;
+}
+
+.description {
+  width: 280px;
+  height: 200px;
+  background-color: #F2F2F2;
+  margin: 50px 0 50px 0;
+  padding: 0 20px 0 20px;
+  float: left;
+}
+
+.description-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.description-paragraph {
+  display: flex;
+}
+
+.abilities {
+  width: 60px;
+  height: 300px;
+  background-color: #0B8C7F;
+  float: right;
+
+}
+
+.skill {
+  width: 50px;
+  height: 50px;
+  background-color: rgb(206, 0, 0);
+  margin: 20px 0 20px 5px; 
+  box-shadow: 2px 4px 4px #022623; 
+}
+
+.interactive .card-front {
+  transform: rotateY(180deg);
+  transition: all 1s;
+  backface-visibility: hidden;
+}
+
+.card-back {
+  background-color: #075951;
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  transition: all 1s;
+  box-shadow: 10px 5px 5px #022623;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.interactive .card-back {
+  background-color: #075951;
+  transform: rotateY(0deg);
+}
+
+
+
+/*# sourceMappingURL=/card.2f3a3ab9.css.map */

@@ -3,51 +3,22 @@
 
 // Include any default variable overrides here (though functions won't be available)
 
-@import "../../node_modules/bootstrap/scss/bootstrap";
+//COLORS
+$cc1:     #56BFBF;
+$cc2:     #022623;
+$cc3:     #0B8C7F;
+$cc4:     #F2F2F2;
 
-// RANGE KNOBS
-// .range-knob-wrapper {
-//     position: relative;
-//     width: 50px;
-//     height: 50px;
-//     margin: 0 auto;
-    
-//     input[type="range"] {
-//       position: relative;
-//       z-index: 2;
-//       //@include opacity(0);
-//       width: 50px;
-//       height: 50px;
-//       @include transform(rotate(-90deg));
-//     }
-    
-//     .range-knob {
-//       position: absolute;
-//       z-index: 1;
-//       top: 10px;
-//       left: 10px;
-//       width: 30px;
-//       height: 30px;
-//       background: $white;
-//       border: 4px solid #111;
-//       @include border-radius(50%);
-//       @include box-shadow(0 0 8px #1c1c1c, 0 0 1px 1px #4c4c4c);
-//       @include transition(0.1s all);
-//       @include box-sizing(border-box);
-      
-//       &:after {
-//         content: '';
-//         display: block;
-//         position: absolute;
-//         width: 4px;
-//         height: 8px;
-//         top: 0;
-//         left: 9px;
-//         background: #111;
-//       }
-//     }
-    
-//     .vol + .range-knob {
-//       background: $orange;
-//     }
-//   }
+
+$primary:       $cc1;
+$secondary:     $cc2;
+$success:       $cc3;
+$info:          $cc3;
+$warning:       yellow;
+$danger:        red;
+$light:         $cc4;
+$dark:          $cc2;
+
+
+
+@import "../../node_modules/bootstrap/scss/bootstrap";

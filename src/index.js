@@ -1,18 +1,9 @@
-// Import a module using ES6 import syntax
-import {Howl, Howler} from 'howler';
-
 //Import Pizzicato
-import Pizzicato, { volume } from 'pizzicato';
-
-//Import sound files
-import sawURL from './assets/sound/saw.mp3'
-import squareURL from './assets/sound/square.mp3'
-
-//Import bootstrap
-import { Tooltip as Tooltip, Toast as Toast, Popover as Popover } from 'bootstrap';
+import Pizzicato from 'pizzicato';
 
 //Import scss file
 import './scss/custom.scss';
+import "./scss/card.scss";
 
 //Get slider dom elements
 const frequencySlider = document.querySelector('#frequencyRange');
@@ -87,7 +78,6 @@ mixerSlider.addEventListener('input', sliderInputMixer);
 function sliderInputFrequency (event){
     const value = event.target.value * 1;
     lowPassFilter.frequency = value;
-    console.log(lowPassFilter.frequency);  
 }
 frequencySlider.addEventListener('input', sliderInputFrequency);
 

@@ -11333,7 +11333,7 @@ module.hot.accept(reloadCSS);
 
 var _howler = require("howler");
 
-var _pizzicato = _interopRequireDefault(require("pizzicato"));
+var _pizzicato = _interopRequireWildcard(require("pizzicato"));
 
 var _saw = _interopRequireDefault(require("./assets/sound/saw.mp3"));
 
@@ -11345,59 +11345,102 @@ require("./scss/custom.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
 // Import a module using ES6 import syntax
 //Import Pizzicato
 //Import sound files
 //Import bootstrap
 //Import scss file
-//import sound objects
+//Get slider dom elements
+var frequencySlider = document.querySelector('#frequencyRange');
+var tremoloSlider = document.querySelector('#tremoloRange');
+var mixerSlider = document.querySelector('#mixerRange'); //import sound objects
+
 var saw = new _pizzicato.default.Sound({
   source: 'wave',
   options: {
     type: 'sawtooth',
-    frequency: 440
+    frequency: 440,
+    volume: mixerSlider.value / 100
   }
 });
 var square = new _pizzicato.default.Sound({
   source: 'wave',
   options: {
     type: 'square',
-    frequency: 440
+    frequency: 440,
+    volume: 1 - mixerSlider.value / 100
   }
-});
+}); //create sound group
+
 var group = new _pizzicato.default.Group([saw, square]);
-group.volume = 0; //Flip Card
+group.volume = 0; //create filter
+
+var lowPassFilter = new _pizzicato.default.Effects.LowPassFilter({
+  frequency: 5000,
+  peak: 3
+});
+group.addEffect(lowPassFilter); //create tremolo
+
+var tremolo = new _pizzicato.default.Effects.Tremolo({
+  speed: 7,
+  depth: tremoloSlider.value / 100,
+  mix: 0.8
+});
+group.addEffect(tremolo); //Flip Card
 
 var cardElement = document.querySelector('.card');
 var cardFront = document.querySelector('.card-front');
 cardFront.addEventListener('click', function () {
   if (!cardElement.classList.contains('interactive')) {
     cardElement.classList.add('interactive');
-    console.log('interactive added');
   }
 });
 var closeButton = document.querySelector('#closeButton');
 closeButton.addEventListener('click', function (event) {
   event.preventDefault();
   cardElement.classList.remove('interactive');
-  console.log('interactive removed');
 }); //Mixer
 
-function sliderInput(event) {
+function sliderInputMixer(event) {
   var value = event.target.value / 100;
   saw.volume = value;
   square.volume = 1 - value;
 }
 
-var mixerSlider = document.querySelector('#mixerRange');
-mixerSlider.addEventListener('input', sliderInput); //Mute Button
+mixerSlider.addEventListener('input', sliderInputMixer); //Frequency
+
+function sliderInputFrequency(event) {
+  var value = event.target.value * 1;
+  lowPassFilter.frequency = value;
+  console.log(lowPassFilter.frequency);
+}
+
+frequencySlider.addEventListener('input', sliderInputFrequency); //Tremolo
+
+function sliderInputTremolo(event) {
+  var value = event.target.value / 100;
+  tremolo.depth = value;
+}
+
+tremoloSlider.addEventListener('input', sliderInputTremolo); //Mute Button
 
 var isMuted = true;
+var isPlaying = false;
 
 function toggleMute(event) {
   if (isMuted) {
     group.volume = 1;
     isMuted = false;
+
+    if (!isPlaying) {
+      saw.play();
+      square.play();
+      isPlaying = true;
+    }
   } else {
     group.volume = 0;
     isMuted = true;
@@ -11405,10 +11448,7 @@ function toggleMute(event) {
 }
 
 var muteButton = document.querySelector('#muteButton');
-muteButton.addEventListener('click', toggleMute); //play soundfiles
-
-saw.play();
-square.play();
+muteButton.addEventListener('click', toggleMute);
 },{"howler":"../node_modules/howler/dist/howler.js","pizzicato":"../node_modules/pizzicato/distr/Pizzicato.min.js","./assets/sound/saw.mp3":"assets/sound/saw.mp3","./assets/sound/square.mp3":"assets/sound/square.mp3","bootstrap":"../node_modules/bootstrap/dist/js/bootstrap.esm.js","./scss/custom.scss":"scss/custom.scss"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';

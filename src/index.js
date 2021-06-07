@@ -2,7 +2,7 @@
 import {Howl, Howler} from 'howler';
 
 //Import Pizzicato
-import Pizzicato from 'pizzicato';
+import Pizzicato, { volume } from 'pizzicato';
 
 //Import sound files
 import sawURL from './assets/sound/saw.mp3'
@@ -14,13 +14,19 @@ import { Tooltip as Tooltip, Toast as Toast, Popover as Popover } from 'bootstra
 //Import scss file
 import './scss/custom.scss';
 
+//Get slider dom elements
+const frequencySlider = document.querySelector('#frequencyRange');
+const tremoloSlider = document.querySelector('#tremoloRange');
+const mixerSlider = document.querySelector('#mixerRange');
+
 
 //import sound objects
 const saw = new Pizzicato.Sound({ 
     source: 'wave',
     options: {
         type: 'sawtooth',
-        frequency: 440
+        frequency: 440,
+        volume: mixerSlider.value / 100
     }
 });
 
@@ -28,12 +34,29 @@ const square = new Pizzicato.Sound({
     source: 'wave',
     options: {
         type: 'square',
-        frequency: 440
+        frequency: 440,
+        volume: 1 - (mixerSlider.value / 100)
     }
 });
 
+//create sound group
 const group = new Pizzicato.Group([saw, square]);
 group.volume = 0;
+
+//create filter
+const lowPassFilter = new Pizzicato.Effects.LowPassFilter({
+    frequency: 5000,
+    peak: 3
+});
+group.addEffect(lowPassFilter);
+
+//create tremolo
+const tremolo = new Pizzicato.Effects.Tremolo({
+    speed: 7,
+    depth: tremoloSlider.value / 100,
+    mix: 0.8
+});
+group.addEffect(tremolo);
 
 //Flip Card
 const cardElement = document.querySelector('.card');
@@ -42,7 +65,6 @@ const cardFront = document.querySelector('.card-front');
 cardFront.addEventListener('click', () => {
     if (!cardElement.classList.contains('interactive')) {
         cardElement.classList.add('interactive');
-        console.log('interactive added');
     }
 })
 
@@ -51,39 +73,48 @@ const closeButton = document.querySelector('#closeButton');
 closeButton.addEventListener('click', (event) => {
     event.preventDefault();
     cardElement.classList.remove('interactive');
-    console.log('interactive removed');
 })
 
 //Mixer
-function sliderInput (event){
+function sliderInputMixer (event){
     const value = event.target.value / 100;
     saw.volume = value;
     square.volume = (1 - value);
 }
+mixerSlider.addEventListener('input', sliderInputMixer);
 
-const mixerSlider = document.querySelector('#mixerRange');
+//Frequency
+function sliderInputFrequency (event){
+    const value = event.target.value * 1;
+    lowPassFilter.frequency = value;
+    console.log(lowPassFilter.frequency);  
+}
+frequencySlider.addEventListener('input', sliderInputFrequency);
 
-mixerSlider.addEventListener('input', sliderInput);
+//Tremolo
+function sliderInputTremolo (event){
+    const value = event.target.value / 100;
+    tremolo.depth = value;
+}
+tremoloSlider.addEventListener('input', sliderInputTremolo);
 
 //Mute Button
 let isMuted = true;
-
+let isPlaying = false;
 function toggleMute (event){
-    if (isMuted){
+    if (isMuted) {
         group.volume = 1;
         isMuted = false;
+        if (!isPlaying) {
+            saw.play();
+            square.play();
+            isPlaying = true;
+        }
     }
     else {
         group.volume = 0;
         isMuted = true;
     }
 }
-
 const muteButton = document.querySelector('#muteButton');
-
 muteButton.addEventListener('click', toggleMute);
-
-
-//play soundfiles
-saw.play();
-square.play();

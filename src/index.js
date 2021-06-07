@@ -1,6 +1,9 @@
 // Import a module using ES6 import syntax
 import {Howl, Howler} from 'howler';
 
+//Import Pizzicato
+import Pizzicato from 'pizzicato';
+
 //Import sound files
 import sawURL from './assets/sound/saw.mp3'
 import squareURL from './assets/sound/square.mp3'
@@ -11,16 +14,26 @@ import { Tooltip as Tooltip, Toast as Toast, Popover as Popover } from 'bootstra
 //Import scss file
 import './scss/custom.scss';
 
-//create object for sound-files
-var saw = new Howl({
-    src: [sawURL],
-    loop: true,
-});
-var square = new Howl({
-    src: [squareURL],
-    loop: true,
+
+//import sound objects
+const saw = new Pizzicato.Sound({ 
+    source: 'wave',
+    options: {
+        type: 'sawtooth',
+        frequency: 440
+    }
 });
 
+const square = new Pizzicato.Sound({ 
+    source: 'wave',
+    options: {
+        type: 'square',
+        frequency: 440
+    }
+});
+
+const group = new Pizzicato.Group([saw, square]);
+group.volume = 0;
 
 //Flip Card
 const cardElement = document.querySelector('.card');
@@ -44,9 +57,8 @@ closeButton.addEventListener('click', (event) => {
 //Mixer
 function sliderInput (event){
     const value = event.target.value / 100;
-    saw.volume(value);
-    square.volume(1 - value);
-    console.log(value);
+    saw.volume = value;
+    square.volume = (1 - value);
 }
 
 const mixerSlider = document.querySelector('#mixerRange');
@@ -54,15 +66,15 @@ const mixerSlider = document.querySelector('#mixerRange');
 mixerSlider.addEventListener('input', sliderInput);
 
 //Mute Button
-let isMuted = false;
+let isMuted = true;
 
 function toggleMute (event){
     if (isMuted){
-        Howler.volume(1);
+        group.volume = 1;
         isMuted = false;
     }
     else {
-        Howler.volume(0);
+        group.volume = 0;
         isMuted = true;
     }
 }

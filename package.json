@@ -26,12 +26,10 @@
   "dependencies": {
     "@popperjs/core": "^2.9.2",
     "bootstrap": "^5.0.1",
-    "howler": "^2.2.1",
     "pizzicato": "^0.6.4",
     "scss": "^0.2.4"
   },
   "devDependencies": {
-    "@types/react": "^17.0.9",
     "css-loader": "^5.2.6",
     "cssnano": "^5.0.5",
     "node-sass": "^6.0.0",

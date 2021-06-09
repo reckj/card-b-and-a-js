@@ -19,7 +19,7 @@ const saw = new Pizzicato.Sound({
     source: 'wave',
     options: {
         type: 'sawtooth',
-        frequency: 440,
+        frequency: 220,
         volume: mixerSlider.value / 100
     }
 });
@@ -28,7 +28,7 @@ const square = new Pizzicato.Sound({
     source: 'wave',
     options: {
         type: 'square',
-        frequency: 440,
+        frequency: 220,
         volume: 1 - (mixerSlider.value / 100)
     }
 });
@@ -67,6 +67,7 @@ const closeButton = document.querySelector('#closeButton');
 closeButton.addEventListener('click', (event) => {
     event.preventDefault();
     cardElement.classList.remove('interactive');
+    
 })
 
 //Mixer

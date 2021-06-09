@@ -224,7 +224,7 @@ var saw = new _pizzicato.default.Sound({
   source: 'wave',
   options: {
     type: 'sawtooth',
-    frequency: 440,
+    frequency: 220,
     volume: mixerSlider.value / 100
   }
 });
@@ -232,7 +232,7 @@ var square = new _pizzicato.default.Sound({
   source: 'wave',
   options: {
     type: 'square',
-    frequency: 440,
+    frequency: 220,
     volume: 1 - mixerSlider.value / 100
   }
 }); //create sound group

@@ -215,7 +215,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //Get slider dom elements
 var frequencySlider = document.querySelector('#frequencyRange');
 var tremoloSlider = document.querySelector('#tremoloRange');
-var mixerSlider = document.querySelector('#mixerRange'); //import sound objects
+var mixerSlider = document.querySelector('#mixerRange'); //control variables
+
+var masterVolume = 0.5; //change master output volume here
+//import sound objects
 
 var saw = new _pizzicato.default.Sound({
   source: 'wave',
@@ -290,7 +293,7 @@ var isPlaying = false;
 
 function toggleMute(event) {
   if (isMuted) {
-    group.volume = 1;
+    group.volume = masterVolume;
     isMuted = false;
 
     if (!isPlaying) {
@@ -334,7 +337,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52573" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59356" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

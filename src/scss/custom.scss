@@ -3,6 +3,13 @@
 
 // Include any default variable overrides here (though functions won't be available)
 
+
+//Range sliders
+$form-range-track-width:          50%;
+$form-range-track-height:         .5rem;
+$form-range-track-cursor:         pointer;
+$form-range-thumb-width:          1rem;
+
 //COLORS
 $cc1:     #56BFBF;
 $cc2:     #022623;
@@ -18,7 +25,6 @@ $warning:       yellow;
 $danger:        red;
 $light:         $cc4;
 $dark:          $cc2;
-
 
 
 @import "../../node_modules/bootstrap/scss/bootstrap";

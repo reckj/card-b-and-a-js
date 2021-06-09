@@ -10,6 +10,9 @@ const frequencySlider = document.querySelector('#frequencyRange');
 const tremoloSlider = document.querySelector('#tremoloRange');
 const mixerSlider = document.querySelector('#mixerRange');
 
+//control variables
+const masterVolume = 0.5;   //change master output volume here
+
 
 //import sound objects
 const saw = new Pizzicato.Sound({ 
@@ -93,7 +96,7 @@ let isMuted = true;
 let isPlaying = false;
 function toggleMute (event){
     if (isMuted) {
-        group.volume = 1;
+        group.volume = masterVolume;
         isMuted = false;
         if (!isPlaying) {
             saw.play();

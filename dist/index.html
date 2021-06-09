@@ -38,15 +38,24 @@
       </div>
     </div>
     <div class="card-back">
-      <button type="button" class="btn btn-secondary" id="closeButton">Secondary</button>
-      <br>
-      <label for="mixerRange" class="form-label">MIXER</label>
-      <input type="range" class="form-range" id="mixerRange">
-      <label for="frequencyRange" class="form-label">FREQ</label>
-      <input type="range" class="form-range" id="frequencyRange" min="0" max="5000" value="5000">
-      <label for="tremoloRange" class="form-label">Tremolo-Depth</label>
-      <input type="range" class="form-range" id="tremoloRange" value="0">
-      <button type="button" class="btn btn-primary" id="muteButton">Primary</button>
+      <div class="closeButtonWrapper">
+        <button type="button" class="btn btn-secondary" id="closeButton">Close</button>
+      </div>
+      <div class="faderWrapper"> 
+        <label for="mixerRange" class="form-label">MIXER</label>
+        <input type="range" class="form-range" id="mixerRange">
+      </div>
+      <div class="faderWrapper">
+        <label for="frequencyRange" class="form-label">FREQ</label>
+        <input type="range" class="form-range" id="frequencyRange" min="0" max="5000" value="5000">
+      </div>
+      <div class="faderWrapper">
+        <label for="tremoloRange" class="form-label">Tremolo-Depth</label>
+        <input type="range" class="form-range" id="tremoloRange" value="0">
+      </div>
+      <div class="muteButtonWrapper">
+        <button type="button" class="btn btn-primary" id="muteButton">Mute / Unmute</button>
+      </div>
     </div>
   </div>
   <script src="/src.e31bb0bc.js"></script>

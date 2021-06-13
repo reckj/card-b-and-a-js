@@ -1783,7 +1783,7 @@ textarea.form-control-lg {
     .form-range::-webkit-slider-thumb:active {
       background-color: #ccecec; }
   .form-range::-webkit-slider-runnable-track {
-    width: 100%;
+    width: 50%;
     height: 0.5rem;
     color: transparent;
     cursor: pointer;
@@ -1804,7 +1804,7 @@ textarea.form-control-lg {
     .form-range::-moz-range-thumb:active {
       background-color: #ccecec; }
   .form-range::-moz-range-track {
-    width: 100%;
+    width: 50%;
     height: 0.5rem;
     color: transparent;
     cursor: pointer;
@@ -7603,6 +7603,30 @@ body {
   background-color: #075951;
   transform: rotateY(0deg);
   transition: all 1s; }
+
+.faderWrapper {
+  width: 50%;
+  margin: auto; }
+
+.muteButtonWrapper {
+  width: 50%;
+  margin: auto; }
+
+.faderWrapper {
+  height: 20%; }
+
+.muteButtonWrapper {
+  padding-top: 10%;
+  height: 20%; }
+
+.waveImage {
+  width: 50px; }
+
+#sawWave {
+  float: left; }
+
+#squareWave {
+  float: right; }
 
 
 /*# sourceMappingURL=/src.e31bb0bc.css.map */

@@ -10,13 +10,16 @@ const frequencySlider = document.querySelector('#frequencyRange');
 const tremoloSlider = document.querySelector('#tremoloRange');
 const mixerSlider = document.querySelector('#mixerRange');
 
+//control variables
+const masterVolume = 0.5;   //change master output volume here
+
 
 //import sound objects
 const saw = new Pizzicato.Sound({ 
     source: 'wave',
     options: {
         type: 'sawtooth',
-        frequency: 440,
+        frequency: 220,
         volume: mixerSlider.value / 100
     }
 });
@@ -25,7 +28,7 @@ const square = new Pizzicato.Sound({
     source: 'wave',
     options: {
         type: 'square',
-        frequency: 440,
+        frequency: 220,
         volume: 1 - (mixerSlider.value / 100)
     }
 });
@@ -64,6 +67,7 @@ const closeButton = document.querySelector('#closeButton');
 closeButton.addEventListener('click', (event) => {
     event.preventDefault();
     cardElement.classList.remove('interactive');
+    
 })
 
 //Mixer
@@ -93,7 +97,7 @@ let isMuted = true;
 let isPlaying = false;
 function toggleMute (event){
     if (isMuted) {
-        group.volume = 1;
+        group.volume = masterVolume;
         isMuted = false;
         if (!isPlaying) {
             saw.play();

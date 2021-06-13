@@ -7612,13 +7612,21 @@ body {
   width: 50%;
   margin: auto; }
 
-/* .form-label {
-  width: 80%;
-  margin: auto;
-} */
-/* .closeButtonWrapper {
-  align-items: center;
-} */
+.faderWrapper {
+  height: 20%; }
+
+.muteButtonWrapper {
+  padding-top: 10%;
+  height: 20%; }
+
+.waveImage {
+  width: 50px; }
+
+#sawWave {
+  float: left; }
+
+#squareWave {
+  float: right; }
 
 
 /*# sourceMappingURL=/src.e31bb0bc.css.map */

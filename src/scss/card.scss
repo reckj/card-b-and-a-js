@@ -158,11 +158,23 @@ body {
   margin: auto;
 }
 
-/* .form-label {
-  width: 80%;
-  margin: auto;
-} */
+.faderWrapper {
+  height: 20%;
+}
 
-/* .closeButtonWrapper {
-  align-items: center;
-} */
+.muteButtonWrapper {
+  padding-top: 10%;
+  height: 20%;
+}
+
+.waveImage {
+  width: 50px;
+}
+
+#sawWave {
+  float: left;
+}
+
+#squareWave {
+  float: right;
+}
